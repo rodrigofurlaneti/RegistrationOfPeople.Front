@@ -1,0 +1,375 @@
+/* Define Poppins como fonte padrão */
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f4f8;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 700px;
+    margin: 3rem auto;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h5 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+
+/* Estilo para títulos */
+h1, h2, h3, h4, h6 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600; /* Negrito */
+}
+
+/* Estilo para parágrafos */
+p {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400; /* Regular */
+}
+
+/* Botões */
+button {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+}
+
+label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+label.col-form-label-payment {
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 200;
+}
+
+
+.full-height {
+    height: 100vh;
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-details {
+    padding-top: 20px;
+    font-size: 14px;
+    word-break: break-word;
+}
+
+.text-amount {
+    font-size: 12px;
+    word-break: break-word;
+}
+
+.card{
+    border: none;
+}
+
+.imgDefault {
+    padding-top: 2vh;
+    height: 175px;
+    aspect-ratio: auto 175 / 175;
+    width: 175px;
+}
+
+.btn-custom {
+    padding: 1px 15px 3px 2px;
+    border-radius: 50px;
+}
+
+.btn-icon {
+    padding: 8px;
+    background: #ffffff;
+}
+
+.modal-backdrop {
+    z-index: 1040;
+}
+
+#userGreeting {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#icoCartMarket {
+    cursor: pointer;
+}
+
+.logo-img {
+    height: 40px;
+    width: auto;
+}
+
+.navbar {
+    background-color: #ffffff; /* Substitua pelo código da cor exata */
+}
+
+/* Define um contêiner fixo para as imagens do carousel */
+.carousel-item {
+    height: 500px; /* Altura fixa do contêiner */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Oculta partes das imagens que ultrapassem o contêiner */
+}
+
+/* Ajusta o tamanho das imagens dentro do contêiner */
+.carousel-item img {
+    height: 100%; /* Ajusta a altura para preencher o contêiner */
+    width: auto; /* Mantém a proporção original */
+    object-fit: cover; /* Garante que a imagem preencha o contêiner */
+}
+
+/* Adiciona animação de zoom e alpha quando no botão sobre */
+.btn-item:hover {
+    object-fit: cover;
+    transition: transform 1.5s ease, opacity 1.5s ease; /* Suaviza o zoom e o alpha */
+    transform: scale(1.0); /* Tamanho inicial (sem zoom) */
+    opacity: 0.8; /* Transparência inicial */
+}
+
+.btn-item  {
+    transform: scale(1.1); /* Aplica zoom quando ativo */
+    opacity: 1; /* Remove transparência quando ativo */
+}
+
+.btn-custom-text{
+    font-family:verdana; 
+    font-size:10px;
+}
+
+.gallery-image {
+    max-height: 200px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.gallery-image:hover {
+    transform: scale(1.05);
+}
+
+.main-gallery-image {
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+.gallery-thumbnails img {
+    max-height: 75px;
+    margin: 0 5px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.gallery-thumbnails img:hover,
+.gallery-thumbnails img.active {
+    border-color: #007bff;
+}
+
+#mainImage {
+    transition: opacity 0.5s ease-in-out; /* Define a transição de opacidade */
+    opacity: 1; /* Opacidade inicial */
+}
+
+#mainImage.fade-out {
+    opacity: 0; /* Fica invisível */
+}
+
+#mainImage.fade-in {
+    opacity: 1; /* Retorna à visibilidade */
+}
+
+.totals-container {
+    display: flex;
+    flex-direction: column; /* Coloca os itens um embaixo do outro */
+    align-items: flex-end; /* Alinha os itens no lado direito */
+    margin-top: 10px; /* Adiciona espaçamento acima */
+}
+
+.totals-container .totals-item {
+    font-weight: bold; /* Destaca os valores */
+    margin-bottom: 5px; /* Espaçamento entre os itens */
+    text-align: right; /* Alinha o texto dentro dos itens à direita */
+}
+
+.dataSummaryCommand {
+    font-size: 12px; /* Define um tamanho menor para o texto */
+    white-space: nowrap; /* Impede que o texto quebre em várias linhas */
+    text-align: center; /* Alinha o texto ao centro na célula */
+}
+
+#cartModalBody {
+    max-height: 400px; /* Limita a altura para evitar a barra de rolagem vertical excessiva */
+    overflow-y: auto; /* Permite rolagem apenas vertical */
+    overflow-x: hidden; /* Impede a rolagem horizontal */
+}
+
+#tableSummaryCommand {
+    width: 100%; /* Faz a tabela ocupar toda a largura disponível */
+    table-layout: auto; /* Deixa o navegador ajustar o layout da tabela */
+    border-collapse: collapse; /* Remove espaços entre bordas das células */
+}
+
+#tableSummaryCommand th, 
+#tableSummaryCommand td {
+    word-wrap: break-word; /* Permite quebra de linha dentro das células */
+    white-space: nowrap; /* Impede quebra de linhas em textos muito longos */
+    text-align: center; /* Centraliza os textos nas células */
+}
+
+#countProductOrder {
+    top: 5px !important; 
+    left: 35px !important; 
+    position: absolute; /* Garante posicionamento correto */
+    font-size: 12px; /* Ajusta o tamanho da fonte */
+}
+
+#spanProductDiscount {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    transform: rotate(0deg);
+    font-family: 'Poppins', sans-serif; 
+    font-size:14px; 
+    font-weight: 400;
+}
+
+#spanProductValueFor {
+    font-family: 'Poppins', sans-serif; 
+    font-size: 15px;
+    font-weight: 450;
+}
+
+#lblDeliveryQuestion {
+    display: flex;
+    align-items: center; /* Centraliza verticalmente */
+    justify-content: center; /* Centraliza horizontalmente */
+    gap: 20px; /* Espaçamento entre os itens */
+}
+
+
+
+.cardPayment {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cardPayment-header {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+.cardPayment-body {
+    padding: 15px;
+}
+
+.accordion-button {
+    font-size: 1rem;
+}
+
+.containerPayment {
+    margin: 2vw; /* Espaçamento externo baseado em 2% da largura da viewport */
+    padding: 2rem; /* Espaçamento interno baseado no tamanho da fonte raiz */
+    border-radius: 1rem; /* Bordas arredondadas para consistência */
+    background-color: #f8f9fa; /* Cor de fundo opcional */
+}
+
+
+.form-floating-label {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.form-floating-label input,
+.form-floating-label textarea {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.5rem 1rem 0.5rem; /* Espaço superior para o label */
+    font-size: 1rem;
+    background-color: #f9f9f9;
+    width: 100%;
+    height: 3.5rem; /* Define altura do campo */
+}
+
+.form-floating-label label {
+    position: absolute;
+    top: 1.2rem; /* Centralizado verticalmente */
+    left: 1rem;
+    font-size: 1rem;
+    color: #aaa;
+    pointer-events: none;
+    transition: 0.3s ease all;
+}
+
+.form-floating-label input:focus + label,
+.form-floating-label input:not(:placeholder-shown) + label,
+.form-floating-label textarea:focus + label,
+.form-floating-label textarea:not(:placeholder-shown) + label {
+    top: 0.2rem; /* Move para o topo dentro do input */
+    left: 0.8rem; /* Margem à esquerda */
+    font-size: 0.85rem; /* Texto menor */
+    color: #f26c1b;
+}
+
+.form-floating-label input:focus,
+.form-floating-label textarea:focus {
+    border-color: #f26c1b;
+    outline: none;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(242, 108, 27, 0.5);
+}
+
+.btn-primary {
+    background-color: #f26c1b;
+    border-color: #f26c1b;
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.btn-primary:hover {
+    background-color: #d45b17;
+}
+
+@media (max-width: 768px) {
+    .containerPayment {
+        margin: 4vw; /* Aumenta a margem em telas menores */
+        padding: 1.5rem; /* Reduz o espaçamento interno */
+    }
+
+    .form-floating-label {
+        margin-bottom: 1rem; /* Adiciona espaço entre os campos */
+    }
+
+    .row > div {
+        width: 100%; /* Garante que cada campo ocupe 100% da largura */
+    }
+}
+
