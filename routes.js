@@ -6,6 +6,8 @@ export const urlBaseApiEnvironment = urlBaseApiLocalHost;
 //Configuration Api Routes
 export const urlBaseApi = urlBaseApiEnvironment+"api/";
 export const urlBaseApiPerson = urlBaseApiEnvironment +"api/Person";
+export const urlBaseApiAddress = urlBaseApiEnvironment +"api/Address";
+export const urlBaseApiAddressGetByPersonId = urlBaseApiEnvironment +"api/Address/ByPersonId";
 
 //Configuration Api Routes Externo
 export const urlBaseZipCode = "https://viacep.com.br/ws/";

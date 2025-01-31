@@ -7,4 +7,4 @@ export const personSuccessfullyRegistered = "Pessoa cadastrada com sucesso!";
 export const errorSavingPerson = "Erro ao salvar a pessoa!";
 export const personIdNotFound = "ID da pessoa não encontrado!";
 export const errorLoadingPersonData = "Erro ao carregar a pessoa!";
-export const personSuccessfullyUpdated = "Pessoa cadastrada com sucesso!";
+export const personSuccessfullyUpdated = "Pessoa atualizada com sucesso!";

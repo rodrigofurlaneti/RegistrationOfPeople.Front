@@ -30,7 +30,7 @@ async function fetchPersons() {
                 <td>${person.name}</td>
                 <td>${person.phone}</td>
                 <td>${person.cpf}</td>
-                <td>${person.status ? 'Ativo' : 'Inativo'}</td>
+                <td>${person.status ? 'Inativo' : 'Ativo'}</td>
                 <td>
                     <div class="row justify-content-md-center">
                         <div class="col-sm-6">

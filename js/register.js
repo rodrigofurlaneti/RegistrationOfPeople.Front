@@ -1,50 +1,6 @@
 import * as routes from "../routes.js";
 import * as translator from "../translatorPtBr.js";
 
-document.getElementById("personForm").addEventListener("submit", async function(event) {
-    event.preventDefault();
-
-    const personData = {
-        name: document.getElementById("name").value,
-        phone: document.getElementById("phone").value,
-        cpf: document.getElementById("cpf").value,
-        zipCode: document.getElementById("zipCode").value,
-        address: document.getElementById("address").value,
-        number: document.getElementById("number").value,
-        complement: document.getElementById("complement").value,
-        neighborhood: document.getElementById("neighborhood").value,
-        city: document.getElementById("city").value,
-        state: document.getElementById("state").value,
-        createAt: new Date().toISOString(),
-        updateAt: new Date().toISOString(),
-        active: true
-    };
-
-    try {
-        const response = await fetch(routes.urlBaseApiPerson, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(personData)
-        });
-
-        if (!response.ok) {
-            Swal.fire(translator.errorExclamation, translator.errorSavingPerson, "error");
-
-            throw new Error(`Erro na API: ${response.status} ${response.statusText}`);
-        }
-
-        Swal.fire(translator.successExclamation, translator.personSuccessfullyRegistered, "success");
-
-        document.getElementById("message").innerHTML = "<p class='text-success'>Pessoa cadastrado com sucesso!</p>";
-
-        setTimeout(() => { window.location.href = "index.html"; }, 2000);
-
-    } catch (error) {
-        document.getElementById("message").innerHTML = `<p class='text-danger'>Erro: ${error.message}</p>`;
-    }
-});
-
-
 // Adiciona máscara ao campo CPF
 document.getElementById('cpf').addEventListener('input', function (event) {
     let cpfInput = event.target;
@@ -138,7 +94,10 @@ document.addEventListener("click", function (event) {
 //Cep
 function limpa_formulário_cep() {
     //Limpa valores do formulário de cep.
+    document.getElementById('zipCodeModal').value=("");
     document.getElementById('addressModal').value=("");
+    document.getElementById('numberModal').value=("");
+    document.getElementById('complementModal').value=("");
     document.getElementById('neighborhoodModal').value=("");
     document.getElementById('cityModal').value=("");
     document.getElementById('stateModal').value=("");
@@ -215,8 +174,10 @@ window.pesquisacep = pesquisacep;
 window.meu_callback = meu_callback;
 
 
+let addresses = [];
+
+// Função para adicionar endereço
 document.getElementById("saveAddess").addEventListener("click", function () {
-    // Captura os valores dos inputs do modal
     const zipCode = document.getElementById("zipCodeModal").value;
     const address = document.getElementById("addressModal").value;
     const number = document.getElementById("numberModal").value;
@@ -225,24 +186,117 @@ document.getElementById("saveAddess").addEventListener("click", function () {
     const city = document.getElementById("cityModal").value;
     const state = document.getElementById("stateModal").value;
 
-    // Atribui os valores aos inputs ocultos do formulário principal
-    document.getElementById("zipCode").value = zipCode;
-    document.getElementById("address").value = address;
-    document.getElementById("number").value = number;
-    document.getElementById("complement").value = complement;
-    document.getElementById("neighborhood").value = neighborhood;
-    document.getElementById("city").value = city;
-    document.getElementById("state").value = state;
+    if (!zipCode || !address || !number || !neighborhood || !city || !state) {
+        Swal.fire("Erro", "Preencha todos os campos obrigatórios!", "error");
+        return;
+    }
 
-    // Opcional: Exibir uma mensagem de sucesso (usando SweetAlert2)
-    Swal.fire({
-        title: "Endereço Salvo!",
-        text: "Os dados do endereço foram adicionados ao formulário.",
-        icon: "success",
-        confirmButtonText: "OK"
+    const newAddress = {
+        id: 0,
+        personId: null, // Será preenchido ao cadastrar a pessoa
+        zipCode,
+        address,
+        number,
+        complement,
+        neighborhood,
+        city,
+        state,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        active: true
+    };
+
+    addresses.push(newAddress);
+    updateAddressList();
+    limpa_formulário_cep();
+
+    Swal.fire("Sucesso", "Endereço adicionado!", "success");
+
+    bootstrap.Modal.getInstance(document.getElementById("confirmAddressModal")).hide();
+});
+
+// Atualiza a exibição dos endereços na tela
+function updateAddressList() {
+    const addressList = document.getElementById("addressList");
+    addressList.innerHTML = "";
+
+    addresses.forEach((addr, index) => {
+        const li = document.createElement("li");
+        li.className = "list-group-item d-flex justify-content-between align-items-center";
+        li.innerHTML = `
+            ${addr.address}, ${addr.number} - ${addr.neighborhood}, ${addr.city}/${addr.state} 
+            <button class="btn btn-danger btn-sm" onclick="removeAddress(${index})">Remover</button>
+        `;
+        addressList.appendChild(li);
     });
+}
 
-    // Fechar o modal após salvar os dados (opcional)
-    const modal = bootstrap.Modal.getInstance(document.getElementById("confirmAddressModal"));
-    modal.hide();
+// Remove um endereço do array e atualiza a lista
+function removeAddress(index) {
+    addresses.splice(index, 1);
+    updateAddressList();
+}
+
+window.removeAddress = removeAddress;
+
+// Modificação no envio do formulário
+document.getElementById("personForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const personData = {
+        id: 0,
+        name: document.getElementById("name").value,
+        phone: document.getElementById("phone").value,
+        cpf: document.getElementById("cpf").value,
+        createAt: new Date().toISOString(),
+        updateAt: new Date().toISOString(),
+        active: true
+    };
+
+    try {
+        const response = await fetch(routes.urlBaseApiPerson, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(personData)
+        });
+
+        if (!response.ok) {
+            Swal.fire("Erro", "Erro ao cadastrar pessoa!", "error");
+            throw new Error(`Erro na API: ${response.status}`);
+        }
+
+        const person = await response.json();
+        const personId = person.id;
+
+        console.log("Pessoa cadastrada com ID:", personId);
+
+        // Adiciona o personId aos endereços e faz requisições individuais
+        if (addresses.length > 0) {
+            const addressPromises = addresses.map(addr => {
+                addr.personId = personId; // Atribui o ID da pessoa
+
+                return fetch(routes.urlBaseApiAddress, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(addr)
+                }).then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Erro ao cadastrar endereço: ${response.status}`);
+                    }
+                    return response.json();
+                });
+            });
+
+            // Aguarda todas as requisições de endereços serem concluídas
+            await Promise.all(addressPromises);
+        }
+
+        Swal.fire("Sucesso", "Pessoa e endereços cadastrados com sucesso!", "success");
+
+        setTimeout(() => { window.location.href = "index.html"; }, 2000);
+
+    } catch (error) {
+        console.error(error);
+        Swal.fire("Erro", `Erro: ${error.message}`, "error");
+    }
 });
